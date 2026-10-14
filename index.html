@@ -1,58 +1,399 @@
-<!-- ... existing code ... -->
-                <!-- Avatar Profile -->
-                <div class="relative shrink-0">
-                    <div class="w-40 h-40 sm:w-48 sm:h-48 rounded-3xl overflow-hidden ring-4 ring-pink-200 dark:ring-pink-900/50 shadow-md relative bg-gradient-to-br from-pink-100 via-sky-100 to-indigo-100 dark:from-slate-700 dark:to-slate-800 flex items-center justify-center text-slate-400">
-                        <!-- Profile Image from GitHub Commit -->
-                        <img id="profileImg" src="https://raw.githubusercontent.com/69202302024-jpg/spy-port/218edf4c223dc21f8e64f3effdc7abf5535ee28b/IMG_3717.heic" alt="ฐิตากร พุทธผา (สปาย)" class="w-full h-full object-cover relative z-10 transition-opacity duration-300 opacity-0" onload="this.classList.remove('opacity-0')" onerror="handleImgError(this)" />
-                        
-                        <!-- Fallback Avatar Content -->
-                        <div id="profileFallback" class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
-<!-- ... existing code ... -->
-        // HEIC Profile Image Converter and Loader with Commit Hash Support
-        async function loadProfileImage() {
-            const imgEl = document.getElementById('profileImg');
-            
-            // Candidate URLs starting with the specific commit SHA (218edf4c223dc21f8e64f3effdc7abf5535ee28b)
-            const commitHash = '218edf4c223dc21f8e64f3effdc7abf5535ee28b';
-            const candidateUrls = [
-                `https://raw.githubusercontent.com/69202302024-jpg/spy-port/${commitHash}/IMG_3717.heic`,
-                `https://raw.githubusercontent.com/69202302024-jpg/spy-port/${commitHash}/IMG_3717.jpg`,
-                `https://raw.githubusercontent.com/69202302024-jpg/spy-port/${commitHash}/IMG_3717.jpeg`,
-                `https://raw.githubusercontent.com/69202302024-jpg/spy-port/${commitHash}/IMG_3717.png`,
-                'https://raw.githubusercontent.com/69202302024-jpg/spy-port/main/IMG_3717.heic'
-            ];
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ฐิตากร พุทธผา (สปาย) - Academic Portfolio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Prompt & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-            for (const url of candidateUrls) {
-                try {
-                    const response = await fetch(url);
-                    if (!response.ok) continue;
-                    const blob = await response.blob();
-
-                    // Convert HEIC to JPEG using heic2any for browsers that don't support HEIC natively
-                    if (window.heic2any && (blob.type.includes('heic') || url.toLowerCase().endsWith('.heic'))) {
-                        const convertedBlob = await heic2any({
-                            blob: blob,
-                            toType: "image/jpeg",
-                            quality: 0.85
-                        });
-                        const resultBlob = Array.isArray(convertedBlob) ? convertedBlob[0] : convertedBlob;
-                        imgEl.src = URL.createObjectURL(resultBlob);
-                    } else {
-                        imgEl.src = URL.createObjectURL(blob);
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
                     }
-                    imgEl.classList.remove('opacity-0');
-                    return; // Stop on first successful image load
-                } catch (err) {
-                    console.warn("Retrying next profile image URL candidate:", url, err);
                 }
             }
         }
-
-        function handleImgError(img) {
-            loadProfileImage();
-        }
-
-        window.addEventListener('DOMContentLoaded', loadProfileImage);
     </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-card border-b border-slate-200/60">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="#" class="text-lg font-bold tracking-tight text-slate-900 hover:text-brand-600 transition-colors">
+                TITAKON<span class="text-brand-500">.P</span>
+            </a>
+            
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+                <a href="#about" class="hover:text-brand-600 transition-colors">เกี่ยวกับฉัน</a>
+                <a href="#education" class="hover:text-brand-600 transition-colors">ประวัติการศึกษา</a>
+                <a href="#skills" class="hover:text-brand-600 transition-colors">ทักษะ & กิจกรรม</a>
+                <a href="#contact" class="hover:text-brand-600 transition-colors">การติดต่อ</a>
+            </nav>
+
+            <a href="#contact" class="inline-flex items-center justify-center px-4 py-2 text-xs font-semibold tracking-wide text-white bg-slate-900 rounded-full hover:bg-brand-600 transition-all duration-200 shadow-sm">
+                ติดต่อฉัน
+            </a>
+        </div>
+    </header>
+
+    <main class="pt-24 pb-16">
+        <!-- Hero Section -->
+        <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 md:py-20">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                
+                <div class="md:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-50 border border-brand-100 text-brand-700 text-xs font-medium">
+                        <span class="flex h-2 w-2 rounded-full bg-brand-500 animate-pulse"></span>
+                        นักศึกษา • วิทยาลัยการสาธารณสุขสิรินธรจังหวัดขอนแก่น
+                    </div>
+                    
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 tracking-tight leading-tight">
+                        สวัสดีค่ะ, ฉันชื่อ <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-indigo-600">ฐิตากร พุทธผา</span> (สปาย)
+                    </h1>
+                    
+                    <p class="text-base sm:text-lg text-slate-600 font-light leading-relaxed max-w-2xl">
+                        ยินดีต้อนรับสู่ Academic Portfolio ของฉัน เป็นคนยิ้มง่าย เข้ากับคนอื่นได้ดี มีความมุ่งมั่นในการเรียนรู้สิ่งใหม่ๆ รักสัตว์ และชื่นชอบการทำกิจกรรมอาสาและการดูแลสุขภาพ
+                    </p>
+
+                    <div class="pt-2 flex flex-wrap gap-4">
+                        <a href="#education" class="px-6 py-3 rounded-xl bg-brand-600 text-white font-medium text-sm shadow-md hover:bg-brand-700 transition-all duration-200 flex items-center gap-2">
+                            <i class="fa-solid font-normal fa-graduation-cap"></i>
+                            ดูประวัติการศึกษา
+                        </a>
+                        <a href="#contact" class="px-6 py-3 rounded-xl bg-white border border-slate-200 text-slate-700 font-medium text-sm hover:bg-slate-50 transition-all duration-200 flex items-center gap-2">
+                            <i class="fa-regular fa-envelope"></i>
+                            ช่องทางติดต่อ
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Profile Card Image Placeholder -->
+                <div class="md:col-span-5 flex justify-center">
+                    <div class="relative w-64 h-64 sm:w-80 sm:h-80">
+                        <!-- Decorative background glow -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-brand-500 to-sky-300 rounded-3xl rotate-6 blur-lg opacity-30"></div>
+                        
+                        <!-- Main Card -->
+                        <div class="relative w-full h-full rounded-3xl bg-white p-4 shadow-xl border border-slate-100 flex flex-col items-center justify-center text-center">
+                            <div class="w-32 h-32 sm:w-40 sm:h-40 rounded-2xl bg-slate-100 mb-4 flex items-center justify-center overflow-hidden border border-slate-200">
+                                <img src="https://raw.githubusercontent.com/69202302024-jpg/spy-port/main/IMG_6523.PNG" 
+                                     alt="นางสาวฐิตากร พุทธผา" 
+                                     class="w-full h-full object-cover object-center"
+                                     onerror="this.onerror=null; this.src='IMG_6523.PNG';" />
+                            </div>
+                            <h3 class="font-bold text-slate-900 text-lg">นางสาวฐิตากร พุทธผา</h3>
+                            <p class="text-xs text-slate-500 mt-1">ชื่อเล่น: สปาย • อายุ 19 ปี</p>
+                            <span class="mt-3 px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-medium">
+                                Student Portfolio
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="py-16 bg-white border-y border-slate-200/60">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <h2 class="text-xs font-bold text-brand-600 uppercase tracking-widest mb-2">About Me</h2>
+                    <p class="text-2xl font-bold text-slate-900">เกี่ยวกับฉัน & ข้อมูลส่วนตัว</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <!-- Bio Card -->
+                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 space-y-4">
+                        <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-address-card"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-lg">ข้อมูลส่วนตัว</h3>
+                        <ul class="space-y-2 text-sm text-slate-600">
+                            <li><span class="font-medium text-slate-900">ชื่อจริง:</span> นางสาวฐิตากร พุทธผา</li>
+                            <li><span class="font-medium text-slate-900">ชื่อเล่น:</span> สปาย</li>
+                            <li><span class="font-medium text-slate-900">อายุ:</span> 19 ปี</li>
+                            <li><span class="font-medium text-slate-900">วันเกิด:</span> 18 มีนาคม 2550</li>
+                        </ul>
+                    </div>
+
+                    <!-- Personality Card -->
+                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 space-y-4">
+                        <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-face-smile"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-lg">อุปนิสัย & บุคลิก</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            เป็นคนยิ้มง่าย เข้ากับคนอื่นได้ดี มีมนุษยสัมพันธ์ดี ปรับตัวเข้ากับสิ่งแวดล้อมใหม่ๆ ได้ง่าย และชอบทำงานร่วมกับผู้อื่น
+                        </p>
+                    </div>
+
+                    <!-- Lifestyle & Hobbies Card -->
+                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 space-y-4">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-lg">ความชอบ & งานอดิเรก</h3>
+                        <ul class="space-y-2 text-sm text-slate-600">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-paw text-xs text-slate-400"></i> รักสัตว์ ชอบเล่นกับสุนัขและแมว</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-person-running text-xs text-slate-400"></i> ออกกำลังกายโดยการวิ่ง</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-compact-disc text-xs text-slate-400"></i> ดูหนังและฟังเพลงในเวลาว่าง</li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="py-16">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <h2 class="text-xs font-bold text-brand-600 uppercase tracking-widest mb-2">Education Background</h2>
+                    <p class="text-2xl font-bold text-slate-900">ประวัติการศึกษา</p>
+                </div>
+
+                <!-- Timeline -->
+                <div class="relative border-l-2 border-slate-200 ml-4 md:ml-32 space-y-10">
+                    
+                    <!-- Item 1: Current -->
+                    <div class="relative pl-6 sm:pl-8">
+                        <div class="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-brand-600 text-white flex items-center justify-center text-xs shadow-md">
+                            <i class="fa-solid fa-building-columns"></i>
+                        </div>
+                        <div class="hidden md:block absolute -left-36 top-2 w-28 text-right text-xs font-semibold text-brand-600 uppercase tracking-wider">
+                            ปัจจุบัน
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition-shadow">
+                            <span class="md:hidden inline-block px-2.5 py-0.5 rounded bg-brand-50 text-brand-700 text-xs font-semibold mb-2">ปัจจุบัน</span>
+                            <h3 class="text-lg font-bold text-slate-900">ระดับอุดมศึกษา</h3>
+                            <p class="text-slate-700 font-medium mt-1">วิทยาลัยการสาธารณสุขสิรินธรจังหวัดขอนแก่น</p>
+                            <p class="text-xs text-slate-500 mt-2">สถาบันการศึกษาสาธารณสุขชั้นนำ มุ่งเน้นการสร้างบุคลากรทางการแพทย์และสาธารณสุขเพื่อชุมชน</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="relative pl-6 sm:pl-8">
+                        <div class="absolute -left-[13px] top-2 w-6 h-6 rounded-full bg-slate-300 text-slate-600 flex items-center justify-center text-xs">
+                            <i class="fa-solid fa-school text-[10px]"></i>
+                        </div>
+                        <div class="hidden md:block absolute -left-36 top-2 w-28 text-right text-xs font-medium text-slate-400">
+                            มัธยมศึกษา
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
+                            <span class="md:hidden inline-block px-2.5 py-0.5 rounded bg-slate-100 text-slate-600 text-xs font-semibold mb-2">มัธยมศึกษา</span>
+                            <h3 class="text-base font-bold text-slate-900">ระดับมัธยมศึกษาตอนต้น</h3>
+                            <p class="text-slate-600 text-sm mt-1">โรงเรียนสตรีราชินูทิศ</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="relative pl-6 sm:pl-8">
+                        <div class="absolute -left-[13px] top-2 w-6 h-6 rounded-full bg-slate-300 text-slate-600 flex items-center justify-center text-xs">
+                            <i class="fa-solid fa-school text-[10px]"></i>
+                        </div>
+                        <div class="hidden md:block absolute -left-36 top-2 w-28 text-right text-xs font-medium text-slate-400">
+                            ประถมศึกษา
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
+                            <span class="md:hidden inline-block px-2.5 py-0.5 rounded bg-slate-100 text-slate-600 text-xs font-semibold mb-2">ประถมศึกษา</span>
+                            <h3 class="text-base font-bold text-slate-900">ระดับประถมศึกษา</h3>
+                            <p class="text-slate-600 text-sm mt-1">โรงเรียนเทศบาล 5 สีหรักษ์วิทยา</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="relative pl-6 sm:pl-8">
+                        <div class="absolute -left-[13px] top-2 w-6 h-6 rounded-full bg-slate-300 text-slate-600 flex items-center justify-center text-xs">
+                            <i class="fa-solid fa-child text-[10px]"></i>
+                        </div>
+                        <div class="hidden md:block absolute -left-36 top-2 w-28 text-right text-xs font-medium text-slate-400">
+                            อนุบาล
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
+                            <span class="md:hidden inline-block px-2.5 py-0.5 rounded bg-slate-100 text-slate-600 text-xs font-semibold mb-2">อนุบาล</span>
+                            <h3 class="text-base font-bold text-slate-900">ระดับอนุบาล</h3>
+                            <p class="text-slate-600 text-sm mt-1">โรงเรียนชุมชนหนองแปนหินโมงวิทยา</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Skills & Activities Section -->
+        <section id="skills" class="py-16 bg-white border-y border-slate-200/60">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    
+                    <!-- Special Skills -->
+                    <div>
+                        <div class="mb-6">
+                            <h2 class="text-xs font-bold text-brand-600 uppercase tracking-widest mb-1">Talents & Abilities</h2>
+                            <h3 class="text-2xl font-bold text-slate-900">ความสามารถพิเศษ</h3>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="p-5 rounded-2xl border border-slate-200/80 bg-slate-50 flex items-start gap-4">
+                                <div class="p-3 bg-brand-100 text-brand-600 rounded-xl">
+                                    <i class="fa-solid fa-volleyball text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900">เล่นกีฬา วอลเลย์บอล</h4>
+                                    <p class="text-sm text-slate-600 mt-1">มีความสามารถในการเล่นกีฬาวอลเลย์บอล ชอบการทำงานเป็นทีม เสริมสร้างระเบียบวินัยและความอดทน</p>
+                                </div>
+                            </div>
+
+                            <div class="p-5 rounded-2xl border border-slate-200/80 bg-slate-50 flex items-start gap-4">
+                                <div class="p-3 bg-rose-100 text-rose-600 rounded-xl">
+                                    <i class="fa-solid fa-masks-theater text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900">รำไทย (นาฏศิลป์ไทย)</h4>
+                                    <p class="text-sm text-slate-600 mt-1">มีความเชี่ยวชาญด้านศิลปวัฒนธรรมการรำไทย อนุรักษ์วัฒนธรรม และมีความมั่นใจในการแสดงต่อหน้าสาธารณชน</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Activities -->
+                    <div>
+                        <div class="mb-6">
+                            <h2 class="text-xs font-bold text-brand-600 uppercase tracking-widest mb-1">Experience</h2>
+                            <h3 class="text-2xl font-bold text-slate-900">กิจกรรมที่เคยเข้าร่วม</h3>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="p-5 rounded-2xl border border-slate-200/80 bg-slate-50 flex items-start gap-4">
+                                <div class="p-3 bg-emerald-100 text-emerald-600 rounded-xl">
+                                    <i class="fa-solid fa-hand-holding-heart text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900">กิจกรรมจิตอาสา</h4>
+                                    <p class="text-sm text-slate-600 mt-1">เข้าร่วมกิจกรรมบำเพ็ญประโยชน์เพื่อส่วนรวม การช่วยเหลือชุมชน และสร้างจิตสำนึกในการเสียสละ</p>
+                                </div>
+                            </div>
+
+                            <div class="p-5 rounded-2xl border border-slate-200/80 bg-slate-50 flex items-start gap-4">
+                                <div class="p-3 bg-amber-100 text-amber-600 rounded-xl">
+                                    <i class="fa-solid fa-campground text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900">ค่ายคุณธรรม</h4>
+                                    <p class="text-sm text-slate-600 mt-1">เข้าร่วมโครงการอบรมคุณธรรมจริยธรรม ฝึกฝนการระลึกรู้ ระเบียบวินัย และการอยู่ร่วมกับผู้อื่นในสังคมอย่างมีความสุข</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-16">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <h2 class="text-xs font-bold text-brand-600 uppercase tracking-widest mb-2">Get in Touch</h2>
+                    <p class="text-2xl font-bold text-slate-900">ช่องทางการติดต่อ</p>
+                    <p class="text-sm text-slate-500 mt-2">สนใจสอบถามข้อมูลเพิ่มเติม หรือติดต่องาน สามารถติดต่อได้ผ่านช่องทางด้านล่างนี้</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    
+                    <!-- Email -->
+                    <div class="p-6 bg-white rounded-2xl border border-slate-200/80 shadow-sm text-center flex flex-col items-center">
+                        <div class="w-12 h-12 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center text-lg mb-4">
+                            <i class="fa-regular fa-envelope"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-base">อีเมล (Email)</h4>
+                        <p class="text-xs text-slate-500 mt-1 mb-4 select-all">titakon182550@gmail.com</p>
+                        <a href="mailto:titakon182550@gmail.com" class="mt-auto inline-flex items-center gap-1.5 text-xs font-semibold text-brand-600 hover:text-brand-800">
+                            ส่งอีเมล <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
+                    </div>
+
+                    <!-- Facebook -->
+                    <div class="p-6 bg-white rounded-2xl border border-slate-200/80 shadow-sm text-center flex flex-col items-center">
+                        <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-lg mb-4">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-base">Facebook</h4>
+                        <p class="text-xs text-slate-500 mt-1 mb-4">titakon puttapa</p>
+                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="mt-auto inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-800">
+                            เยี่ยมชมโปรไฟล์ <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </a>
+                    </div>
+
+                    <!-- Address -->
+                    <div class="p-6 bg-white rounded-2xl border border-slate-200/80 shadow-sm text-center flex flex-col items-center">
+                        <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center text-lg mb-4">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-base">ที่อยู่ปัจจุบัน</h4>
+                        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                            101 ม.8 ต.เชียงเพ็ง <br>
+                            อ.กุดจับ จ.อุดรธานี 41250
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200/80 py-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-xs text-slate-500">
+                © 2026 Titakon Puttapa. All rights reserved. • Academic Portfolio
+            </p>
+            <p class="text-xs text-slate-400">
+                วิทยาลัยการสาธารณสุขสิรินธรจังหวัดขอนแก่น
+            </p>
+        </div>
+    </footer>
+
 </body>
 </html>
